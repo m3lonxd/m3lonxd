@@ -13,7 +13,7 @@
 
 ### Projects
 
-| | | |
+| Project | What it does | |
 |---|---|---|
 | **[nexbrowser](https://github.com/m3lonxd/nexbrowser)** | Low-memory Zen/Firefox-based browser with encrypted accounts | [site](https://nexbrowser.vercel.app) |
 | **[nexchat](https://github.com/m3lonxd/nexchat)** | Real-time chat on Next.js 15, SSE and Redis | [live](https://nexchat-hub.vercel.app) |
@@ -26,7 +26,7 @@
 ### Stack
 
 <p>
-  <img src="https://skillicons.dev/icons?i=py,fastapi,js,ts,nextjs,react,threejs,electron,cpp,firefox,redis,vercel,linux&theme=dark&perline=13" alt="Python, FastAPI, JavaScript, TypeScript, Next.js, React, Three.js, Electron, C++, Firefox, Redis, Vercel, Linux">
+  <img src="https://skillicons.dev/icons?i=py,fastapi,js,ts,nextjs,react,threejs,electron,cpp,redis,vercel,linux&theme=dark&perline=12" alt="Python, FastAPI, JavaScript, TypeScript, Next.js, React, Three.js, Electron, C++, Redis, Vercel, Linux">
 </p>
 
 ### Activity
