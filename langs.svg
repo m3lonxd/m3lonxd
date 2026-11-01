@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="196" viewBox="0 0 400 196" role="img" aria-label="Languages">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d0f14"/><stop offset="1" stop-color="#140c0e"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="196" rx="18" fill="url(#bg)"/>
+  <rect width="400" height="196" rx="18" fill="url(#sheen)"/>
+  <rect x=".5" y=".5" width="399" height="195" rx="17.5" fill="none" stroke="#fff" stroke-opacity=".14"/>
+  <text x="26" y="40" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f3f4f7">Languages</text>
+  <clipPath id="bar"><rect x="26" y="58" width="348" height="10" rx="5"/></clipPath>
+  <g clip-path="url(#bar)"><rect x="26.00" y="58" width="247.26" height="10" fill="#f34b7d"/><rect x="273.26" y="58" width="58.71" height="10" fill="#f1e05a"/><rect x="331.97" y="58" width="19.91" height="10" fill="#3572A5"/><rect x="351.87" y="58" width="11.95" height="10" fill="#663399"/><rect x="363.82" y="58" width="9.75" height="10" fill="#e34c26"/><rect x="373.57" y="58" width="0.43" height="10" fill="#dea584"/></g>
+  <circle cx="31" cy="99" r="5" fill="#f34b7d"/><text x="44" y="104" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#e6e8ee">C++</text><text x="194" y="104" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="13" fill="#9097a3">71.1%</text>
+  <circle cx="211" cy="99" r="5" fill="#f1e05a"/><text x="224" y="104" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#e6e8ee">JavaScript</text><text x="374" y="104" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="13" fill="#9097a3">16.9%</text>
+  <circle cx="31" cy="131" r="5" fill="#3572A5"/><text x="44" y="136" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#e6e8ee">Python</text><text x="194" y="136" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="13" fill="#9097a3">5.7%</text>
+  <circle cx="211" cy="131" r="5" fill="#663399"/><text x="224" y="136" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#e6e8ee">CSS</text><text x="374" y="136" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="13" fill="#9097a3">3.4%</text>
+  <circle cx="31" cy="163" r="5" fill="#e34c26"/><text x="44" y="168" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#e6e8ee">HTML</text><text x="194" y="168" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="13" fill="#9097a3">2.8%</text>
+  <circle cx="211" cy="163" r="5" fill="#dea584"/><text x="224" y="168" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#e6e8ee">Rust</text><text x="374" y="168" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="13" fill="#9097a3">0.1%</text>
+</svg>
