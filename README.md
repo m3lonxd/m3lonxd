@@ -17,6 +17,7 @@
 |---|---|---|
 | **[nexbrowser](https://github.com/m3lonxd/nexbrowser)** | Low-memory Zen/Firefox-based browser with encrypted accounts and a Liquid Glass UI | [site](https://nexbrowser.vercel.app) |
 | **[nexremote](https://github.com/m3lonxd/nexremote)** | Desktop and terminal control for AI agents — window UI trees, screenshots, clicks, typing | |
+| **[nexguard](https://github.com/m3lonxd/nexguard)** | Local security panel for one Linux server — OPSEC audit, DDoS watch, live attack map, SSH honeypot | |
 
 ### Stack
 
