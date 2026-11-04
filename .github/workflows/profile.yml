@@ -1,10 +1,10 @@
 name: Profile cards
 
-# İstatistik/dil kartlarını ve katkı yılanını her gün yeniden üretip
+# İstatistik/dil kartlarını ve katkı yılanını 4 saatte bir yeniden üretip
 # `output` dalına koyar; README görselleri o daldan okur.
 on:
   schedule:
-    - cron: "17 3 * * *"
+    - cron: "17 */4 * * *"
   workflow_dispatch:
   push:
     branches: [main]
