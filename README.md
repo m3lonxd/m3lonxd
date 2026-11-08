@@ -33,6 +33,4 @@
   <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/langs.svg" alt="Languages" height="196">
 </p>
 
-<img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/snake.svg" alt="Contribution graph" width="100%">
-
 <sub>Cards are generated daily by this repository's own workflow.</sub>
