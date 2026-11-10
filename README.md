@@ -16,7 +16,7 @@
 
 | Project | What it does | |
 |---|---|---|
-| **[zen-browser-lite](https://github.com/m3lonxd/zen-browser-lite)** | Official Zen Browser with tuned memory defaults and a working tab unloader; one-line Linux installer | [benchmark](https://github.com/m3lonxd/zen-browser-lite#how-it-is-measured) |
+| **[zen-browser-lite](https://github.com/m3lonxd/zen-browser-lite)** | Official Zen Browser with tuned memory defaults and a working tab unloader; one-line Linux installer | [site](https://zenbrowserlite.vercel.app) |
 | **[nexremote](https://github.com/m3lonxd/nexremote)** | Desktop and terminal control for AI agents — window UI trees, screenshots, clicks, typing | [site](https://nexremote.vercel.app) |
 | **[nexguard](https://github.com/m3lonxd/nexguard)** | Local security panel for one Linux server — OPSEC audit, DDoS watch, live attack map, SSH honeypot | [site](https://nexguard.duckdns.org) |
 
