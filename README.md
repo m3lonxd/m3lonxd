@@ -8,7 +8,7 @@
 
 ### Currently
 
-- **[Zen Browser Lite](https://github.com/m3lonxd/zen-browser-lite)** — unofficial low-memory setup of the official Zen Browser: 60% less RAM once background tabs go idle, measured on real sites. No fork, no rebuild.
+- <img src="https://raw.githubusercontent.com/m3lonxd/zen-browser-lite/main/docs/assets/zen-logo.svg" width="14" alt=""> **[Zen Browser Lite](https://github.com/m3lonxd/zen-browser-lite)** — unofficial low-memory setup of the official Zen Browser: 60% less RAM once background tabs go idle, measured on real sites. No fork, no rebuild.
 - **[NexRemote](https://nexremote.vercel.app)** — lets an AI agent see and drive a real desktop and the terminals already open on it, with the same commands on Linux, Windows and macOS.
 - **[NexGuard](https://nexguard.duckdns.org)** — local security panel for one Linux server: OPSEC audit, DDoS watch, live attack map, SSH honeypot.
 
@@ -16,7 +16,7 @@
 
 | Project | What it does | |
 |---|---|---|
-| **[zen-browser-lite](https://github.com/m3lonxd/zen-browser-lite)** | Official Zen Browser with tuned memory defaults and a working tab unloader; one-line Linux installer | [site](https://zenbrowserlite.vercel.app) |
+| <img src="https://raw.githubusercontent.com/m3lonxd/zen-browser-lite/main/docs/assets/zen-logo.svg" width="14" alt=""> **[zen-browser-lite](https://github.com/m3lonxd/zen-browser-lite)** | Official Zen Browser with tuned memory defaults and a working tab unloader; one-line Linux installer | [site](https://zenbrowserlite.vercel.app) |
 | **[nexremote](https://github.com/m3lonxd/nexremote)** | Desktop and terminal control for AI agents — window UI trees, screenshots, clicks, typing | [site](https://nexremote.vercel.app) |
 | **[nexguard](https://github.com/m3lonxd/nexguard)** | Local security panel for one Linux server — OPSEC audit, DDoS watch, live attack map, SSH honeypot | [site](https://nexguard.duckdns.org) |
 
@@ -33,4 +33,5 @@
   <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/langs.svg" alt="Languages" height="196">
 </p>
 
-<sub>Cards are generated daily by this repository's own workflow.</sub>
+<sub>Cards are generated daily by this repository's own workflow.</sub><br>
+<sub>Zen logo by the Zen Browser team, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>, from <a href="https://github.com/zen-browser/branding-archive">zen-browser/branding-archive</a>.</sub>
