@@ -9,7 +9,7 @@
 ### Currently
 
 - <img src="https://raw.githubusercontent.com/m3lonxd/zen-browser-lite/main/docs/assets/zen-logo.svg" width="14" alt=""> **[Zen Browser Lite](https://github.com/m3lonxd/zen-browser-lite)** — unofficial low-memory setup of the official Zen Browser: 60% less RAM once background tabs go idle, measured on real sites. No fork, no rebuild.
-- **[Computer Use Linux](https://computeruselinux.vercel.app)** — lets an AI agent see and drive a real desktop and the terminals already open on it, with the same commands on Linux, Windows and macOS.
+- <img src="https://raw.githubusercontent.com/m3lonxd/computer-use-linux/master/site/assets/logo.png" width="14" alt=""> **[Computer Use Linux](https://computeruselinux.vercel.app)** — lets an AI agent see and drive a real desktop and the terminals already open on it, with the same commands on Linux, Windows and macOS.
 - **[NexGuard](https://nexguard.duckdns.org)** — local security panel for one Linux server: OPSEC audit, DDoS watch, live attack map, SSH honeypot.
 
 ### Projects
