@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=17&duration=2600&pause=900&color=E5484D&center=true&vCenter=true&width=620&lines=Putting+Zen+Browser+on+a+memory+diet;Giving+AI+agents+eyes+and+hands+on+the+desktop;Building+small+tools+that+do+one+thing+well" alt="Putting Zen Browser on a memory diet. Giving AI agents eyes and hands on the desktop. Building small tools that do one thing well.">
+  <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/terminal.svg" alt="Terminal: whoami and fastfetch showing OS, stack, repos, commits, activity, languages and projects" width="100%">
 </p>
 
 ### Currently
@@ -33,5 +33,5 @@
   <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/langs.svg" alt="Languages" height="196">
 </p>
 
-<sub>Cards are generated daily by this repository's own workflow.</sub><br>
+<sub>Terminal and cards are generated every four hours by this repository's own workflow. Terminal font: JetBrains Mono (OFL).</sub><br>
 <sub>Zen logo by the Zen Browser team, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>, from <a href="https://github.com/zen-browser/branding-archive">zen-browser/branding-archive</a>.</sub>
