@@ -12,6 +12,7 @@ Katmanlar (arkadan öne):
 Kullanım: python3 scripts/card.py <kullanıcı> assets   (assets/card.svg ve assets/stack.svg üretir; içerik sabit, workflow gerekmez)
 """
 import base64
+import math
 import sys
 from html import escape
 from pathlib import Path
@@ -140,65 +141,51 @@ def build(login, font_b64, fig_png):
 """
 
 
-def _letters_box(a, b):
-    """10x10 dolu kare, sağ altta iki harf boşluk olarak (JS/TS logoları gibi)."""
-    font = {"J": ["..#", "..#", "..#", "#.#", "###"], "S": ["###", "#..", "###", "..#", "###"],
-            "T": ["###", ".#.", ".#.", ".#.", ".#."]}
-    rows = ["#" * 10] * 4
-    for r in range(5):
-        cut = lambda g: "".join("." if c == "#" else "#" for c in g)
-        rows.append("##" + cut(font[a][r]) + "#" + cut(font[b][r]) + "#")
-    return rows + ["#" * 10]
-
-
-# 1-bit piksel ikonlar, P=2 ızgarasında ('#' = dolu)
+# 28x28 1-bit logolar: Simple Icons (CC0) yollarından 1px ızgarada eşiklenmiş.
+# Her satır 28 bitlik bir hex sayı; 1 = dolu piksel. İnce hatlı logolarda eşik düşük tutuldu.
 ICONS = {
-    "PYTHON": ["...####...", "...#.##...", "...####...", "#######.##", "#######.##",
-               "##.#######", "##.#######", "...####...", "...##.#...", "...####..."],
-    "JAVASCRIPT": _letters_box("J", "S"),
-    "TYPESCRIPT": _letters_box("T", "S"),
-    "C++": ["...####...", ".########.", "####...###", "###.######", "###.######",
-            "###.######", "###.######", "####...###", ".########.", "...####..."],
-    "RUST": ["..#.##.#..", ".########.", "####..####", ".##.##.##.", "###.#.####",
-             "###.##.###", ".##.#.###.", "####..####", ".########.", "..#.##.#.."],
-    "LINUX": ["...###...", "..#####..", "..#.#.#..", "..#####..", ".##...##.",
-              "##.....##", "##.....##", "##.....##", ".#######.", "###...###"],
-    "GIT": [".###..###", ".###..###", "..#....#.", "..#....#.", "..#...#..",
-            "..#..#...", "..#.#....", "..##.....", ".###.....", ".###....."],
+    "PYTHON": "003f800 00ffe00 019ff00 018ff80 019ff80 01fff80 0003f80 0003fb8 3ffffbc 7ffffbe 7ffff3e fffff3f ffffe7f ff8007f fe001ff fe7ffff fcfffff 7cffffe 7dffffe 3dffffc 1dfc000 01fc000 01fff80 01ff980 01ff180 00ff980 007ff00 001fc00",
+    "JAVASCRIPT": "fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fff9e0f fff9c07 fff9cef fff98ff fff9c7f fff9c1f fff9f07 fff9fc7 fff9fe3 ffb9de3 ff11807 ff03c07 ffc7f1f fffffff fffffff",
+    "TYPESCRIPT": "fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffffff fffff1f f001c07 f001807 ff1f0ff ff1f1ff ff1f0ff ff1f83f ff1fc0f ff1ff07 ff1ffc7 ff1ffc7 ff1f7c7 ff1f007 ff1f00f fffffff fffffff fffffff",
+    "C++": "000f000 001f800 007fe00 01fff80 07fffe0 0fffff0 3fe07fc 3f801fc 3f000fc 3e0007c 3e0f0fc 3c1fbfc 3c3fffc 3c3ff34 3c3ff34 3c3fffc 3c1fbfc 3e0f0fc 3e0007c 3f000fc 3f801fc 3fe07fc 0fffff0 07fffe0 01fff80 007fe00 001f800 000f000",
+    "RUST": "0016800 00dfb00 02fff40 03f9fc0 0fc63f0 0f000f0 3e0007c 1fffe38 7ffff1e 7ffff9e 25f0fa4 fdf0faf 71fff1e f1ffe0f f1fff0f 71f1f1e f1f0f9f 3ffcffc 7ffcffe 7ffc7fe 1c00038 3f801fc 0e40270 0fc03f0 03fffc0 02fff40 00dfb00 0016800",
+    "LINUX": "000f800 001fc00 003fc00 003fe00 002ee00 003fe00 003be00 0020e00 0031e00 003f700 0060700 00e0780 00c03c0 01c03e0 03c01e0 03801e0 03801f0 07800f0 07001f0 05803f0 08c02c0 1060008 2070408 2020404 2011c08 301fc30 1f19c40 01e0780",
+    "GIT": "0006000 000f000 001f800 001fc00 000fe00 00c7f00 01e1f80 03f0fc0 07f0fe0 0ff07f0 1ff83f8 3ff91fc 7ff987e fff9c3f fff9c3f 7ff9c7e 3ff9ffc 1ff9ff8 0ff8ff0 07f0fe0 03f0fc0 01f9f80 00fff00 007fe00 003fc00 001f800 000f000 0006000",
 }
 STACK = ["PYTHON", "JAVASCRIPT", "TYPESCRIPT", "C++", "RUST", "LINUX", "GIT"]
+ICON = 28
 
 
-def icon(rows, x, cy, color):
-    """Bitmap'i yatay koşular hâlinde dikdörtgenlere çevirir; dikeyde cy'ye ortalanır."""
-    top, out = cy - len(rows) * P / 2, []
-    for r, line in enumerate(rows):
+def icon(rows, x, y, color):
+    """Hex bitmap'i tek bir path'e çevirir: her yatay koşu 1px yüksekliğinde bir dikdörtgen."""
+    d = []
+    for r, word in enumerate(rows.split()):
+        bits = f"{int(word, 16):0{ICON}b}"
         c = 0
-        while c < len(line):
-            if line[c] != "#":
+        while c < ICON:
+            if bits[c] != "1":
                 c += 1
                 continue
             run = c
-            while run < len(line) and line[run] == "#":
+            while run < ICON and bits[run] == "1":
                 run += 1
-            out.append(f'<rect x="{x + c * P:.1f}" y="{top + r * P:.1f}" width="{(run - c) * P}" height="{P}"/>')
+            d.append(f"M{x + c} {y + r}h{run - c}v1h{c - run}z")
             c = run
-    return f'<g fill="{color}">{"".join(out)}</g>'
+    return f'<path fill="{color}" d="{"".join(d)}"/>'
 
 
 def stack_svg(font_b64):
-    """Stack şeridi: krem çerçeveli kutular, nokta gölgeli, piksel ikonlu; ilk kutu ters renkli."""
-    cw, pad, h, gap, ig = 7.8 + 1, 12, 30, 10, 8  # 13px mono ilerleme + 1px harf aralığı; ig: ikon-yazı arası
+    """Stack şeridi: krem çerçeveli kutular, nokta gölgeli, piksel logolu; ilk kutu ters renkli."""
+    cw, pad, h, gap, ig = 7.8 + 1, 9, 40, 6, 8  # 13px mono ilerleme + 1px harf aralığı; ig: logo-yazı arası
     x, tiles = 4, []
     for i, name in enumerate(STACK):
-        iw = max(len(r) for r in ICONS[name]) * P
-        w = pad + iw + ig + len(name) * cw - 1 + pad
+        w = math.ceil(pad + ICON + ig + len(name) * cw - 1 + pad)  # tam sayı: logo pikselleri ızgaraya otursun
         inv = i == 0
         fg = BLUE if inv else CREAM
-        tiles.append(f'<rect x="{x + 4:.1f}" y="8" width="{w:.1f}" height="{h}" fill="url(#d50)"/>'
-                     f'<rect x="{x:.1f}" y="4" width="{w:.1f}" height="{h}" fill="{CREAM if inv else BLUE}" stroke="{CREAM}" stroke-width="2"/>'
-                     + icon(ICONS[name], x + pad, 19, fg)
-                     + f'<text x="{x + pad + iw + ig:.1f}" y="24" fill="{fg}" style="font-size:13px;letter-spacing:1px">{name}</text>')
+        tiles.append(f'<rect x="{x + 4}" y="8" width="{w}" height="{h}" fill="url(#d50)"/>'
+                     f'<rect x="{x}" y="4" width="{w}" height="{h}" fill="{CREAM if inv else BLUE}" stroke="{CREAM}" stroke-width="2"/>'
+                     + icon(ICONS[name], x + pad, 4 + (h - ICON) // 2, fg)
+                     + f'<text x="{x + pad + ICON + ig}" y="29" fill="{fg}" style="font-size:13px;letter-spacing:1px">{name}</text>')
         x += w + gap
     width = round(x + 2)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{h + 14}" viewBox="0 0 {width} {h + 14}" role="img" '
