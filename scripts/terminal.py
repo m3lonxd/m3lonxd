@@ -1,6 +1,6 @@
 """Profil başlığı için animasyonlu terminal kartı (SVG).
 
-Kartta `whoami` ve `fastfetch` yazılır; solda piksel karpuz dilimi, sağda GitHub'dan
+Kartta `whoami` ve `fastfetch` yazılır; solda piksel "m3" monogramı, sağda GitHub'dan
 gelen güncel bilgiler çıkar. Çalışma süresi (uptime) bilerek gösterilmez.
 
 Kullanım: GITHUB_TOKEN=... python3 scripts/terminal.py <kullanıcı> <çıktı-dizini>
@@ -110,26 +110,33 @@ def facts(u):
     return rows
 
 
-def melon(x0, y0, cell=8):
-    """Piksel karpuz dilimi: kırmızı iç, çekirdekler, açık ve koyu yeşil kabuk."""
+# Piksel "m3" monogramı (m3lon). Her satır aynı genişlikte; "#" dolu piksel.
+MONOGRAM = [
+    "............#######.",
+    "............########",
+    "..................##",
+    "#########.........##",
+    "##..##..##....######",
+    "##..##..##........##",
+    "##..##..##........##",
+    "##..##..##..########",
+    "##..##..##..#######.",
+]
+
+
+def monogram(x0, y0, cell=10):
+    """Piksel monogram; alt satırlara doğru vurgu rengi hafifçe koyulaşır."""
+    def shade(row):
+        k = row / (len(MONOGRAM) - 1)
+        a, b = (0xE5, 0x48, 0x4D), (0x9E, 0x2B, 0x32)
+        return "#%02x%02x%02x" % tuple(round(a[i] + (b[i] - a[i]) * k) for i in range(3))
     out = []
-    w, h = 26, 13
-    cx, r = w / 2, 13.0
-    for y in range(h):
-        for x in range(w):
-            d = math.hypot(x + 0.5 - cx, y + 0.5)
-            if d > r:
-                continue
-            if d > 11.8:
-                color = GREEN
-            elif d > 10.7:
-                color = "#cfe8b8"
-            elif y >= 2 and d < 9.4 and (x * 5 + y * 7) % 13 == 0:
-                color = "#22181a"
-            else:
-                color = ACCENT
-            out.append(f'<rect x="{x0 + x * cell}" y="{y0 + y * cell}" width="{cell}" height="{cell}" fill="{color}"/>')
-    return "".join(out), w * cell, h * cell
+    for y, line in enumerate(MONOGRAM):
+        color = shade(y)
+        for x, ch in enumerate(line):
+            if ch == "#":
+                out.append(f'<rect x="{x0 + x * cell}" y="{y0 + y * cell}" width="{cell - 1}" height="{cell - 1}" fill="{color}"/>')
+    return "".join(out), len(MONOGRAM[0]) * cell, len(MONOGRAM) * cell
 
 
 def build(u, font_b64):
@@ -174,7 +181,7 @@ def build(u, font_b64):
     t = prompt(y, "fastfetch", t, "p2")
     y += 16
 
-    art, aw, ah = melon(PAD, y)
+    art, aw, ah = monogram(PAD, y + 4)
     body.append(f'<g class="art">{art}</g>')
     appear("art", t)
     t += 0.15
