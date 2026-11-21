@@ -1,9 +1,5 @@
 <p align="center">
-  <img src="assets/header.svg" alt="m3lon — a lighter browser and desktop tooling for AI agents" width="100%">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/terminal.svg" alt="Terminal: whoami and fastfetch showing OS, stack, repos, commits, activity, languages and projects" width="100%">
+  <img src="assets/card.svg" alt="m3lon — AI agents and cyber security. Tools that let agents act on real machines, and tools that keep those machines safe." width="100%">
 </p>
 
 ### Currently
@@ -33,5 +29,5 @@
   <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/langs.svg" alt="Languages" height="196">
 </p>
 
-<sub>Terminal and cards are generated every four hours by this repository's own workflow. Terminal font: JetBrains Mono (OFL).</sub><br>
+<sub>Activity cards are generated every four hours by this repository's own workflow. Header card font: JetBrains Mono (OFL).</sub><br>
 <sub>Zen logo by the Zen Browser team, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>, from <a href="https://github.com/zen-browser/branding-archive">zen-browser/branding-archive</a>.</sub>

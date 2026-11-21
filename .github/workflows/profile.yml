@@ -1,6 +1,6 @@
 name: Profile cards
 
-# İstatistik/dil kartlarını ve terminal kartını 4 saatte bir yeniden üretip
+# İstatistik/dil kartlarını 4 saatte bir yeniden üretip
 # `output` dalına koyar; README görselleri o daldan okur.
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/**", "assets/terminal-font.woff2", ".github/workflows/profile.yml"]
+    paths: ["scripts/cards.py", ".github/workflows/profile.yml"]
 
 permissions:
   contents: write
@@ -27,11 +27,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/cards.py "${{ github.repository_owner }}" dist
-
-      - name: Terminal card
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: python3 scripts/terminal.py "${{ github.repository_owner }}" dist
 
       - name: Publish to output branch
         run: |
