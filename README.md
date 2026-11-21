@@ -29,5 +29,5 @@
   <img src="https://raw.githubusercontent.com/m3lonxd/m3lonxd/output/langs.svg" alt="Languages" height="196">
 </p>
 
-<sub>Activity cards are generated every four hours by this repository's own workflow. Header card font: JetBrains Mono (OFL).</sub><br>
+<sub>Activity cards are regenerated every ten minutes by this repository's own workflow and republished whenever a new commit or repository changes them. Header card font: JetBrains Mono (OFL).</sub><br>
 <sub>Zen logo by the Zen Browser team, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>, from <a href="https://github.com/zen-browser/branding-archive">zen-browser/branding-archive</a>.</sub>
