@@ -175,24 +175,21 @@ def icon(rows, x, y, color):
 
 
 def stack_svg(font_b64):
-    """Stack şeridi: krem çerçeveli kutular, nokta gölgeli, piksel logolu; ilk kutu ters renkli."""
+    """Stack şeridi: hepsi aynı mavi zeminli, krem çerçeveli, piksel logolu kutular."""
     cw, pad, h, gap, ig = 7.8 + 1, 9, 40, 6, 8  # 13px mono ilerleme + 1px harf aralığı; ig: logo-yazı arası
     x, tiles = 4, []
-    for i, name in enumerate(STACK):
+    for name in STACK:
         w = math.ceil(pad + ICON + ig + len(name) * cw - 1 + pad)  # tam sayı: logo pikselleri ızgaraya otursun
-        inv = i == 0
-        fg = BLUE if inv else CREAM
-        tiles.append(f'<rect x="{x + 4}" y="8" width="{w}" height="{h}" fill="url(#d50)"/>'
-                     f'<rect x="{x}" y="4" width="{w}" height="{h}" fill="{CREAM if inv else BLUE}" stroke="{CREAM}" stroke-width="2"/>'
-                     + icon(ICONS[name], x + pad, 4 + (h - ICON) // 2, fg)
-                     + f'<text x="{x + pad + ICON + ig}" y="29" fill="{fg}" style="font-size:13px;letter-spacing:1px">{name}</text>')
+        tiles.append(f'<rect x="{x}" y="4" width="{w}" height="{h}" fill="{BLUE}" stroke="{CREAM}" stroke-width="2"/>'
+                     + icon(ICONS[name], x + pad, 4 + (h - ICON) // 2, CREAM)
+                     + f'<text x="{x + pad + ICON + ig}" y="29" fill="{CREAM}" style="font-size:13px;letter-spacing:1px">{name}</text>')
         x += w + gap
-    width = round(x + 2)
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{h + 14}" viewBox="0 0 {width} {h + 14}" role="img" '
+    width, height = x - gap + 4, h + 8
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" '
             f'aria-label="Stack: {", ".join(n.title() if n not in ("C++",) else n for n in STACK)}" shape-rendering="crispEdges">'
             f'<style>@font-face{{font-family:T;src:url(data:font/woff2;base64,{font_b64}) format(\'woff2\')}}'
             f"text{{font-family:T,'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;white-space:pre}}</style>"
-            f'<defs>{patterns()}</defs>{"".join(tiles)}</svg>\n')
+            f'{"".join(tiles)}</svg>\n')
 
 
 def main():
