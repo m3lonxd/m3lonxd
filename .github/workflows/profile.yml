@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/cards.py", ".github/workflows/profile.yml"]
+    paths: ["scripts/cards.py", "assets/card-font.woff2", "assets/card-eyes.png", "assets/card-hand.png", ".github/workflows/profile.yml"]
 
 permissions:
   contents: write

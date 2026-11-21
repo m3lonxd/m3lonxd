@@ -19,7 +19,7 @@
 ### Stack
 
 <p>
-  <img src="https://skillicons.dev/icons?i=py,js,ts,cpp,rust,linux,git&theme=dark&perline=12" alt="Python, JavaScript, TypeScript, C++, Rust, Linux, Git">
+  <img src="assets/stack.svg" alt="Python, JavaScript, TypeScript, C++, Rust, Linux, Git">
 </p>
 
 ### Activity

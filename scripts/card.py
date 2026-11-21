@@ -9,7 +9,7 @@ Katmanlar (arkadan öne):
   5. ince krem çerçeve
 
 İçerik sabittir (odak: AI ajanları ve siber güvenlik); GitHub verisi ya da token gerekmez.
-Kullanım: python3 scripts/card.py <kullanıcı> assets   (assets/card.svg üretir; içerik sabit, workflow gerekmez)
+Kullanım: python3 scripts/card.py <kullanıcı> assets   (assets/card.svg ve assets/stack.svg üretir; içerik sabit, workflow gerekmez)
 """
 import base64
 import sys
@@ -140,6 +140,74 @@ def build(login, font_b64, fig_png):
 """
 
 
+def _letters_box(a, b):
+    """10x10 dolu kare, sağ altta iki harf boşluk olarak (JS/TS logoları gibi)."""
+    font = {"J": ["..#", "..#", "..#", "#.#", "###"], "S": ["###", "#..", "###", "..#", "###"],
+            "T": ["###", ".#.", ".#.", ".#.", ".#."]}
+    rows = ["#" * 10] * 4
+    for r in range(5):
+        cut = lambda g: "".join("." if c == "#" else "#" for c in g)
+        rows.append("##" + cut(font[a][r]) + "#" + cut(font[b][r]) + "#")
+    return rows + ["#" * 10]
+
+
+# 1-bit piksel ikonlar, P=2 ızgarasında ('#' = dolu)
+ICONS = {
+    "PYTHON": ["...####...", "...#.##...", "...####...", "#######.##", "#######.##",
+               "##.#######", "##.#######", "...####...", "...##.#...", "...####..."],
+    "JAVASCRIPT": _letters_box("J", "S"),
+    "TYPESCRIPT": _letters_box("T", "S"),
+    "C++": ["...####...", ".########.", "####...###", "###.######", "###.######",
+            "###.######", "###.######", "####...###", ".########.", "...####..."],
+    "RUST": ["..#.##.#..", ".########.", "####..####", ".##.##.##.", "###.#.####",
+             "###.##.###", ".##.#.###.", "####..####", ".########.", "..#.##.#.."],
+    "LINUX": ["...###...", "..#####..", "..#.#.#..", "..#####..", ".##...##.",
+              "##.....##", "##.....##", "##.....##", ".#######.", "###...###"],
+    "GIT": [".###..###", ".###..###", "..#....#.", "..#....#.", "..#...#..",
+            "..#..#...", "..#.#....", "..##.....", ".###.....", ".###....."],
+}
+STACK = ["PYTHON", "JAVASCRIPT", "TYPESCRIPT", "C++", "RUST", "LINUX", "GIT"]
+
+
+def icon(rows, x, cy, color):
+    """Bitmap'i yatay koşular hâlinde dikdörtgenlere çevirir; dikeyde cy'ye ortalanır."""
+    top, out = cy - len(rows) * P / 2, []
+    for r, line in enumerate(rows):
+        c = 0
+        while c < len(line):
+            if line[c] != "#":
+                c += 1
+                continue
+            run = c
+            while run < len(line) and line[run] == "#":
+                run += 1
+            out.append(f'<rect x="{x + c * P:.1f}" y="{top + r * P:.1f}" width="{(run - c) * P}" height="{P}"/>')
+            c = run
+    return f'<g fill="{color}">{"".join(out)}</g>'
+
+
+def stack_svg(font_b64):
+    """Stack şeridi: krem çerçeveli kutular, nokta gölgeli, piksel ikonlu; ilk kutu ters renkli."""
+    cw, pad, h, gap, ig = 7.8 + 1, 12, 30, 10, 8  # 13px mono ilerleme + 1px harf aralığı; ig: ikon-yazı arası
+    x, tiles = 4, []
+    for i, name in enumerate(STACK):
+        iw = max(len(r) for r in ICONS[name]) * P
+        w = pad + iw + ig + len(name) * cw - 1 + pad
+        inv = i == 0
+        fg = BLUE if inv else CREAM
+        tiles.append(f'<rect x="{x + 4:.1f}" y="8" width="{w:.1f}" height="{h}" fill="url(#d50)"/>'
+                     f'<rect x="{x:.1f}" y="4" width="{w:.1f}" height="{h}" fill="{CREAM if inv else BLUE}" stroke="{CREAM}" stroke-width="2"/>'
+                     + icon(ICONS[name], x + pad, 19, fg)
+                     + f'<text x="{x + pad + iw + ig:.1f}" y="24" fill="{fg}" style="font-size:13px;letter-spacing:1px">{name}</text>')
+        x += w + gap
+    width = round(x + 2)
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{h + 14}" viewBox="0 0 {width} {h + 14}" role="img" '
+            f'aria-label="Stack: {", ".join(n.title() if n not in ("C++",) else n for n in STACK)}" shape-rendering="crispEdges">'
+            f'<style>@font-face{{font-family:T;src:url(data:font/woff2;base64,{font_b64}) format(\'woff2\')}}'
+            f"text{{font-family:T,'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;white-space:pre}}</style>"
+            f'<defs>{patterns()}</defs>{"".join(tiles)}</svg>\n')
+
+
 def main():
     login, out = sys.argv[1], Path(sys.argv[2])
     assets = Path(__file__).resolve().parent.parent / "assets"
@@ -147,7 +215,9 @@ def main():
                 (assets / "card-figure.png").read_bytes())
     out.mkdir(parents=True, exist_ok=True)
     (out / "card.svg").write_text(svg, encoding="utf-8")
-    print(f"card.svg: {len(svg)} bayt")
+    stack = stack_svg(base64.b64encode((assets / "card-font.woff2").read_bytes()).decode())
+    (out / "stack.svg").write_text(stack, encoding="utf-8")
+    print(f"card.svg: {len(svg)} bayt, stack.svg: {len(stack)} bayt")
 
 
 if __name__ == "__main__":
